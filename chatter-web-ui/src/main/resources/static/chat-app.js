@@ -33,7 +33,7 @@ $(document).ready(function() {
 		var newMsg = $('<li>').text(message)
 		msgs.append(newMsg);
 		newMsg.get(0).scrollIntoView();
-		while ($('body').scrollTop()>0) {
+		while (msgs.scrollTop()>0) {
 			$("#messages").children()[0].remove();
 		}
 	}
