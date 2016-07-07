@@ -1,9 +1,0 @@
-my:
-  user: ping-bot
-  interval: 5000
-spring:
-  cloud:
-    stream:
-      bindings:
-        output:
-          destination: chat
