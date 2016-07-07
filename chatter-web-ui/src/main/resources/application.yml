@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: chatter-web-ui
+  cloud:
+    stream:
+      bindings:
+        output:
+          destination: chat
+        input:
+          destination: chat

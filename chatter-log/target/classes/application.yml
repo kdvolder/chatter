@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: chatter-log
+  cloud:
+    stream:
+      bindings:
+        input: 
+          destination: chat
