@@ -1,0 +1,7 @@
+applications:
+- name: chatter-ui
+  instances: 3
+  buildpack: java_buildpack
+  services:
+  - my-rabbit
+ 

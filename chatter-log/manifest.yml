@@ -1,0 +1,6 @@
+applications:
+- name: chatter-log
+  buildpack: java_buildpack
+  services:
+  - my-rabbit
+ 
