@@ -42,10 +42,12 @@ public class ChatterWebUiApplication implements WebSocketConfigurer {
 	public static void main(String[] args) {
 		SpringApplication.run(ChatterWebUiApplication.class, args);
 	}
-
+	
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-		registry.addHandler(wsToBrokerRelay(), "/websocket").withSockJS();
+		registry.addHandler(wsToBrokerRelay(), "/websocket")
+		.setAllowedOrigins("*")
+		.withSockJS();
 	}
 	
 	@Bean
@@ -63,7 +65,9 @@ public class ChatterWebUiApplication implements WebSocketConfigurer {
 
 			@Override
 			public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-				ws_sessions.add(session);
+				synchronized (ws_sessions) {
+					ws_sessions.add(session);
+				}
 				log.info("Websocket connection OPENED in: "+this);
 				log.info("Number of active sessions = {}", ws_sessions.size());
 			}
@@ -76,14 +80,18 @@ public class ChatterWebUiApplication implements WebSocketConfigurer {
 			@Override
 			public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 				log.info("Websocket connection CLOSED in: "+this);
-				ws_sessions.remove(session);
+				synchronized (ws_sessions) {
+					ws_sessions.remove(session);
+				}
 				log.info("Number of active sessions = {}", ws_sessions.size());
 			}
 			
 			@Override
 			public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
 				log.error("Websocket trasnport error: ", exception);
-				ws_sessions.remove(session);
+				synchronized (ws_sessions) {
+					ws_sessions.remove(session);
+				}
 			}
 		};
 	}
