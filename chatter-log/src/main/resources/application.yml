@@ -6,3 +6,5 @@ spring:
       bindings:
         input: 
           destination: chat
+server:
+  port: 0
