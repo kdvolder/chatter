@@ -20,17 +20,17 @@ This example consists of a few simple spring-boot apps or 'micro-services'. Each
 apps can be run separately, but they are meant to be run together. The apps communicate
 with eachother via spring-cloud-stream messages.
 
-*** chatter-bot:
+###chatter-bot:
 
 The `chatter-bot` is a 'headless' application. It is a bot which continually sends
 numbered 'ping' messages to the chat channel at regular intervals.
 
-*** chatter-log:
+###chatter-log:
 
 The `chatter-log` is a 'headless' application. It connects to the 'chat' channel 
 and logs all received messages at level 'INFO' to its slf4j logger.
 
-*** chatter-web-ui:
+###chatter-web-ui:
 
 The `chatter-web-ui` provides a simple web-ui to a user. In the 'backend' it 
 also connects to the 'chat' channel and relays messages from/to this channel 
