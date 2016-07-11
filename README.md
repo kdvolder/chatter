@@ -53,12 +53,17 @@ find out the container's ip address and define `spring.rabbitmq.host` property t
 Running from STS:
 -----------------
 
-Import the app as 'exsiting maven projects'. When you run the apps locally, each app must be assigned different local
-ports.  In the boot-dash, select each app and click the pencil icon. Assign a port by overriding the `server.port` property.
-We suggest setting the 'chatter-log' and 'chatter-bot' apps `server.port=0`. This will instruct spring-boot to pick
-a port dynamically. Leave the 'chatter-web' as default, and it will run on port 8080.
+Import the app as 'exsiting maven projects'. Select all three app in the Boot Dash View. Click the 'Start' button.
 
-When ports are selected properly, you can select all three apps in the dash and click the 'start' button. 
+Note: When you run the apps locally, each app must be assigned different local
+port.  The apps are already set up so they satisfy this requirement. The 'web-ui' app just runs on the default port (8080).
+The two other apps have `server.port=0` in their application.yml files. This instructs spring-boot to pick
+a port dynamically.
+
+### Note: Why do we need to pick port for the headless apps? 
+
+This is because spring-cloud-stream implicitly turns the app into a webby app. Some useful info is being served on actuator endpoints. For example, try accessing `/health` and see what it returns.
+
 
 
  
