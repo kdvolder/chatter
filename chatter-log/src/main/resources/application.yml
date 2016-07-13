@@ -1,3 +1,5 @@
+server:
+  port: 0
 spring:
   application:
     name: chatter-log
@@ -6,5 +8,3 @@ spring:
       bindings:
         input: 
           destination: chat
-server:
-  port: 0

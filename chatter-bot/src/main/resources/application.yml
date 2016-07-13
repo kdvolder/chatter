@@ -1,11 +1,16 @@
-my:
-  user: ping-bot
-  interval: 5000
+server:
+  port: 0
+chatter:
+  ping:
+    user: PB
+    message-format: '[${u}] Ping ${c}.'
+    interval: 5000
 spring:
   cloud:
     stream:
       bindings:
         output:
           destination: chat
-server:
-  port: 0
+logging:
+  level:
+    com.example.ChatterBotApplication: debug
