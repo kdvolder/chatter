@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	var MAX_HISTORY = 15;
 	
-	var isPWS = (window.location.hostname.indexOf("cfapps.io") > -1);
+	var isPWS = false; //(window.location.hostname.indexOf("cfapps.io") > -1);
 	
 	var ws = new SockJS(isPWS
 			?'https://'+window.location.hostname+':4443/websocket'
