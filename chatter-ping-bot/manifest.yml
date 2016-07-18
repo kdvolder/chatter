@@ -1,6 +1,5 @@
 applications:
 - name: chatter-bot
-  buildpack: java_buildpack
   services:
   - my-rabbit
- 
+    
