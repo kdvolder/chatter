@@ -24,9 +24,9 @@ import org.springframework.util.PropertyPlaceholderHelper;
 @SpringBootApplication
 @EnableBinding(Source.class)
 @EnableScheduling
-public class ChatterBotApplication implements CommandLineRunner {
+public class ChatterPingBotApplication implements CommandLineRunner {
 	
-	private static final Logger log = LoggerFactory.getLogger(ChatterBotApplication.class);
+	private static final Logger log = LoggerFactory.getLogger(ChatterPingBotApplication.class);
 	
 	@Autowired
 	Source channel;
@@ -40,7 +40,7 @@ public class ChatterBotApplication implements CommandLineRunner {
 	private PropertyPlaceholderHelper formatter = new PropertyPlaceholderHelper("${", "}");
 	
 	public static void main(String[] args) {
-		SpringApplication.run(ChatterBotApplication.class, args);
+		SpringApplication.run(ChatterPingBotApplication.class, args);
 	}
 
 	int i;
