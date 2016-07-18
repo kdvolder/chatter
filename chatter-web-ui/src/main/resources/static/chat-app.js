@@ -10,16 +10,16 @@ $(document).ready(function() {
 	
 	// Wire up websocket so that msg received from it are shown in the 'console'.
 	ws.onopen = function () {
-		log('Info: WebSocket connection opened.');
+		log('inf: WebSocket connection opened.');
 	};
 	ws.onerror = function (error) {
-		log('Error: '+error);
+		log('err: '+error);
 	}
 	ws.onmessage = function (event) {
-		log('Received: ' + event.data);
+		log(event.data);
 	};
 	ws.onclose = function () {
-		log('Info: WebSocket connection closed.');
+		log('inf: WebSocket connection closed.');
 	};
 
 	$("#msg").keyup(function(e){
@@ -30,7 +30,7 @@ $(document).ready(function() {
 	$("#send").click(function () {
 		var msg = $("#msg").val();
 		ws.send(msg);
-		log('Sent: '+msg);
+	//	log('Sent: '+msg);
 	});
 	
 	function log(message) {

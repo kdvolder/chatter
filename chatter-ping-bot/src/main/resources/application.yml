@@ -2,12 +2,14 @@ server:
   port: 0
 chatter:
   ping:
-    user: PING-original
-    message-format: 'P-P-P... Ping! ${c}.'
-    interval: 2500
+    #user: PING-original
+    #message-format: 'P-P-P... Ping! ${c}.'
+    interval: 2000
 spring:
   cloud:
     stream:
       bindings:
         output:
           destination: chat
+banner:
+  location: classpath:my-banner.txt

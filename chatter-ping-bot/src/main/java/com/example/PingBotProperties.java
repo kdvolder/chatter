@@ -11,17 +11,18 @@ public class PingBotProperties {
 	/**
 	 * The username the bot uses to send messages in the chat channel.
 	 */
-	private String user = "nobody";
+	private String user = "ping";
 	
 	/**
 	 * The time the bot waits (in ms) between sending its 'ping' messages.
 	 */
-	private long interval = 1000;
+	private long interval = 3000;
 	
 	/**
-	 * Message format for the 'ping' message.
+	 * Message format for the 'ping' message. Use ${u} for the user name, ${c} for
+	 * the message counter.
 	 */
-	private String messageFormat = "This is message #%d.";
+	private String messageFormat = "[${u}]: ${c}";
 
 	public String getUser() {
 		return user;

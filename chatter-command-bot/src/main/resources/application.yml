@@ -1,0 +1,21 @@
+server:
+  port: 0 #dynamic!
+logging:
+  level:
+    com.example.ChatterCommandBotApplication: debug
+    com.example.BannerCommandHandler: debug
+spring:
+  cloud:
+    stream:
+      bindings:
+        input:
+          destination: chat
+        output:
+          destination: chat
+chatter:
+  bot:
+    commands:
+      banner: com.example.BannerCommandHandler
+      print: com.example.EchoCommandHandler
+      echo: com.example.EchoCommandHandler
+      date: com.example.DateCommandHandler
