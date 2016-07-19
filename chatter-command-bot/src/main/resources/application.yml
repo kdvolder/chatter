@@ -19,3 +19,4 @@ chatter:
       print: com.example.EchoCommandHandler
       echo: com.example.EchoCommandHandler
       date: com.example.DateCommandHandler
+    figlet-font: classpath:fonts/bulbhead.flf
