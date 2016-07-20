@@ -1,0 +1,24 @@
+server:
+  port: 0
+spring:
+  application:
+    name: chatter-banner-service
+  jackson:
+    serialization:
+      indent-output: true
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${random.int}
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+---
+spring:
+  profiles: cloud
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-kdv.cfapps.io/eureka/
+  instance:
+    hostname: ${vcap.application.uris[0]}
+    non-secure-port: 80

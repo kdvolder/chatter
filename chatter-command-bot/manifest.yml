@@ -1,5 +1,5 @@
 applications:
-- name: chatter-ping-bot
+- name: chatter-command-bot
   services:
   - my-rabbit
     

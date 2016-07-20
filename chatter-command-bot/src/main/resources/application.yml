@@ -2,8 +2,14 @@ server:
   port: 0 #dynamic!
 logging:
   level:
+    com.example.BannerService: debug
     com.example.ChatterCommandBotApplication: debug
     #com.example.BannerCommandHandler: debug
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: false
 spring:
   cloud:
     stream:
@@ -12,9 +18,22 @@ spring:
           destination: chat
         output:
           destination: chat
+  application:
+    name: chatter-command-bot
 chatter:
   bot:
     commands:
       banner: com.example.BannerCommandHandler
       echo: com.example.EchoCommandHandler
       date: com.example.DateCommandHandler
+---
+spring:
+  profiles: cloud
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-kdv.cfapps.io/eureka/
+  instance:
+    hostname: ${vcap.application.uris[0]}
+    non-secure-port: 80
+      
