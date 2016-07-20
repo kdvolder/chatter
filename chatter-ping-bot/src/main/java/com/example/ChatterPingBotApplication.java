@@ -2,10 +2,11 @@ package com.example;
 
 import java.util.Properties;
 
+import javax.annotation.PostConstruct;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.stream.annotation.EnableBinding;
@@ -24,7 +25,7 @@ import org.springframework.util.PropertyPlaceholderHelper;
 @SpringBootApplication
 @EnableBinding(Source.class)
 @EnableScheduling
-public class ChatterPingBotApplication implements CommandLineRunner {
+public class ChatterPingBotApplication {
 	
 	private static final Logger log = LoggerFactory.getLogger(ChatterPingBotApplication.class);
 	
@@ -43,12 +44,12 @@ public class ChatterPingBotApplication implements CommandLineRunner {
 		SpringApplication.run(ChatterPingBotApplication.class, args);
 	}
 
-	int i;
+	int pingCounter;
 
-	@Override
-	public void run(String... arg0) throws Exception {
-		log.info("Initializing bot: {}", config.getUser());
-
+	@PostConstruct
+	public void init() throws Exception {
+		pingCounter = 0;
+		log.info("Initializing ping bot: {}", config.getUser());
 		scheduler.scheduleAtFixedRate(() -> {
 			String formatted = formatter.replacePlaceholders(config.getMessage(), messageParameters());
 			log.debug("fomatted message = {}", formatted);
@@ -59,7 +60,7 @@ public class ChatterPingBotApplication implements CommandLineRunner {
 	private Properties messageParameters() {
 		Properties params = new Properties();
 		params.put("u", config.getUser());
-		params.put("c",  ++i+"");
+		params.put("c",  ++pingCounter+"");
 		return params;
 	}
 

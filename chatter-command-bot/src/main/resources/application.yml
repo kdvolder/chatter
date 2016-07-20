@@ -3,7 +3,7 @@ server:
 logging:
   level:
     com.example.ChatterCommandBotApplication: debug
-    com.example.BannerCommandHandler: debug
+    #com.example.BannerCommandHandler: debug
 spring:
   cloud:
     stream:
@@ -16,7 +16,5 @@ chatter:
   bot:
     commands:
       banner: com.example.BannerCommandHandler
-      print: com.example.EchoCommandHandler
       echo: com.example.EchoCommandHandler
       date: com.example.DateCommandHandler
-    figlet-font: classpath:fonts/bulbhead.flf
