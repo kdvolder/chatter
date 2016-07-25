@@ -34,7 +34,7 @@ and then sends some messages on the channel to answer the user's request.
 
 Commands and handlers are configured via `application.yml`.
 
-##chatter-banner-service:
+###chatter-banner-service:
 
 This is a rest service that creates ascii banners. It is used by the handler for the `!banner` command
 in the command-bot.
