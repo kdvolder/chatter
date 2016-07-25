@@ -1,10 +1,5 @@
 server:
   port: 0 #dynamic!
-logging:
-  level:
-    com.example.BannerService: debug
-    com.example.ChatterCommandBotApplication: debug
-    #com.example.BannerCommandHandler: debug
 eureka:
   client:
     service-url:

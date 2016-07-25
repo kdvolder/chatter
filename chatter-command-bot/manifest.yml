@@ -2,4 +2,3 @@ applications:
 - name: chatter-command-bot
   services:
   - my-rabbit
-    

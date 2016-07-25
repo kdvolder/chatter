@@ -2,4 +2,4 @@ applications:
 - name: chatter-ping-bot
   services:
   - my-rabbit
-    
+  buildpack: java_buildpack
