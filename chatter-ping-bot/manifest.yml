@@ -1,5 +1,6 @@
 applications:
 - name: chatter-ping-bot
+  random-route: true
   services:
   - my-rabbit
   buildpack: java_buildpack

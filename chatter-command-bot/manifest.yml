@@ -1,4 +1,5 @@
 applications:
 - name: chatter-command-bot
+  random-route: true
   services:
   - my-rabbit

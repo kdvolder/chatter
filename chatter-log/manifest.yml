@@ -1,5 +1,6 @@
 applications:
 - name: chatter-log
+  random-route: true
   buildpack: java_buildpack
   services:
   - my-rabbit
