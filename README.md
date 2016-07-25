@@ -25,7 +25,7 @@ with eachother via spring-cloud-stream messages.
 The `chatter-ping-bot` is a 'headless' application. It is a bot which continually sends
 numbered 'ping' messages to the chat channel at regular intervals.
 
-##chatter-command-bot:
+###chatter-command-bot:
 
 The `chatter-command-bot` is a 'headless' application. It is a bot which listens for 
 incoming messages of the form `!<command-name> <argument>`. When a command is recognized
