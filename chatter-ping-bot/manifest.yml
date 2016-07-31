@@ -3,4 +3,4 @@ applications:
   random-route: true
   services:
   - my-rabbit
-  buildpack: java_buildpack
+#  buildpack: java_buildpack
