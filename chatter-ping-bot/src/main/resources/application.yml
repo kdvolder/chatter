@@ -1,13 +1,18 @@
 server:
   port: 0
-chatter:
-  ping:
-    user: Ping
-    message-format: '${u}: ${c}.'
-    interval: 2000
+  
+logging:
+  level:
+    com.example.ChatterPingBotApplication: debug
+    
 spring:
   cloud:
     stream:
       bindings:
-        output:
+        output: 
           destination: chat
+          
+chatter:
+  ping:
+    interval: 300
+    user: foo
