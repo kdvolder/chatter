@@ -1,3 +1,4 @@
 applications:
 - name: chatter-banner-service
   random-route: true
+  buildpack: java_buildpack
