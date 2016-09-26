@@ -14,5 +14,5 @@ spring:
           
 chatter:
   ping:
-    interval: 300
-    user: foo
+    interval: 2000
+    user: ToRonTo
