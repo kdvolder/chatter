@@ -21,7 +21,7 @@ public class ChatterBannerServiceApplication {
 	}
 
 	@GetMapping(value="/", produces="text/plain; charset=utf-8")
-	public String bannerAsHtml(@RequestParam(defaultValue="SpringOne") String text) throws IOException {
+	public String banner(@RequestParam(defaultValue="SpringOne") String text) throws IOException {
 		return FigletFont.convertOneLine(text);
 	}
 
