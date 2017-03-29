@@ -89,8 +89,11 @@ have to do first.
 1) create a rabbit-mq service on your space and call if `my-rabbit`. The `manifest.yml` included with each app refers to this
 service if it needs access to rabbitmq.
 
-2) Search and replace the name `eureka-kdv` which I have chosen as the hostname for the eureka server. You will have choose
-something else.
+2) create a 'service registry' service on your space and calli it `eureka-pws`. The `manifest.yml` included with each app refers to this
+service if it relies on a Eureka service.
 
-Once you have done that, drag/drop all the apps on a CF instance and it should all start up correctly.
+Once you have done that, drag/drop all the apps **except the eureka-server** on a CF instance and it should all start up correctly.
+
+Note: The reason you don't need to deploy the `eureka-server` app we use when running on localhost is that on PWS we are instead
+using `eureka-pws` service instance bound in the `manifest.yml` of any app that requires it.
  
