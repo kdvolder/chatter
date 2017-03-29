@@ -1,5 +1,7 @@
 applications:
 - name: chatter-ping-bot
-  random-route: true
-  services:
+  services: 
   - my-rabbit
+  buildpack: java_buildpack
+  memory: 1024M
+    
