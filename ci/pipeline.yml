@@ -18,13 +18,16 @@ resources:
     region_name: {{s3_region}}
     regexp: chatter-demo/chatter-web-ui-.*\.jar
 jobs:
-- name: build-chatter-ui
+- name: build-chatter-web-ui
   plan:
   - aggregate:
     - get: chatter-git
+      trigger: true
     - get: docker
   - task: build
     file: chatter-git/ci/tasks/build-fat-jar.yml
+    params:
+      app_name: chatter-web-ui
     image: docker
   - put: chatter-web-ui-jar
     params:

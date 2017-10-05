@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 base_dir=`pwd`
 app_dir=${base_dir}/chatter-git/${app_name}
 out_dir=${base_dir}/out
