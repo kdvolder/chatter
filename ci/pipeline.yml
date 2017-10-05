@@ -51,6 +51,9 @@ jobs:
 - name: deploy-chatter-web-ui
   plan:
   - aggregate:
+    - get: chatter-git
+      passed:
+      - build-chatter-web-ui
     - get: chatter-web-ui-jar
       passed:
       - build-chatter-web-ui
@@ -62,6 +65,9 @@ jobs:
 - name: build-chatter-banner-service
   plan:
   - aggregate:
+    - get: chatter-git
+      passed:
+      - build-chatter-banner-service
     - get: chatter-git
       trigger: true
     - get: docker
