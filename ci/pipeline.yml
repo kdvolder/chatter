@@ -32,5 +32,3 @@ jobs:
   - put: chatter-web-ui-jar
     params:
       file: out/*.jar
-
-
