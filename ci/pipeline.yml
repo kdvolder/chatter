@@ -17,6 +17,14 @@ resources:
     secret_access_key: {{s3_secretkey}}
     region_name: {{s3_region}}
     regexp: chatter-demo/chatter-web-ui-(.*)\.jar
+- name: chatter-banner-service-jar
+  type: s3
+  source:
+    bucket: {{s3_bucket}}
+    access_key_id: {{s3_accesskey}}
+    secret_access_key: {{s3_secretkey}}
+    region_name: {{s3_region}}
+    regexp: chatter-demo/chatter-web-ui-(.*)\.jar
 - name: chatter-web-ui-app
   type: cf
   source:
@@ -45,11 +53,35 @@ jobs:
   - aggregate:
     - get: chatter-git
     - get: chatter-web-ui-jar
+      passed:
+      - build-chatter-web-ui
       trigger: true
-  - task: deploy
-    file: chatter-git/ci/tasks/deploy-fat-jar.yml
+  - put: chatter-web-ui-app
     params:
-      app_name: chatter-web-ui
+      manifest: chatter-git/chatter-web-ui/manifest.yml
+      path: chatter-web-ui-jar/*.jar
+- name: build-chatter-banner-service
+  plan:
+  - aggregate:
+    - get: chatter-git
+      trigger: true
+    - get: docker
+  - task: build
+    file: chatter-git/ci/tasks/build-fat-jar.yml
+    params:
+      app_name: chatter-banner-service
+    image: docker
+  - put: chatter-banner-service-jar
+    params:
+      file: out/*.jar
+- name: deploy-chatter-banner-service
+  plan:
+  - aggregate:
+    - get: chatter-git
+    - get: chatter-web-ui-jar
+      passed:
+      - build-chatter-web-ui
+      trigger: true
   - put: chatter-web-ui-app
     params:
       manifest: chatter-git/chatter-web-ui/manifest.yml
