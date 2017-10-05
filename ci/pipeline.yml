@@ -1,0 +1,33 @@
+resources:
+- name: chatter-git
+  type: git
+  source:
+    uri: git@github.com:kdvolder/chatter.git
+    private_key: {{rsa_id}}
+    branch: toronto_2017
+- name: docker
+  type: docker-image
+  source:
+    repository: kdvolder/sts4-build-env
+- name: chatter-web-ui-jar
+  type: s3
+  source:
+    bucket: {{s3_bucket}}
+    access_key_id: {{s3_accesskey}}
+    secret_access_key: {{s3_secretkey}}
+    region_name: {{s3_region}}
+    regexp: chatter-demo/chatter-web-ui-.*\.jar
+jobs:
+- name: build-chatter-ui
+  plan:
+  - aggregate:
+    - get: chatter-git
+    - get: docker
+  - task: build
+    file: chatter-git/ci/tasks/build-fat-jar.yml
+    image: docker
+  - put: chatter-web-ui-jar
+    params:
+      file: out/*.jar
+
+
