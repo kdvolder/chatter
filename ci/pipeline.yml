@@ -16,7 +16,15 @@ resources:
     access_key_id: {{s3_accesskey}}
     secret_access_key: {{s3_secretkey}}
     region_name: {{s3_region}}
-    regexp: chatter-demo/chatter-web-ui-.*\.jar
+    regexp: chatter-demo/chatter-web-ui-(.*)\.jar
+- name: chatter-web-ui-app
+  type: cf
+  source:
+    api: {{cf_api}}
+    username: {{cf_user}}
+    password: {{cf_password}}
+    organization: {{cf_org}}
+    space: {{cf_space}}
 jobs:
 - name: build-chatter-web-ui
   plan:
@@ -32,3 +40,17 @@ jobs:
   - put: chatter-web-ui-jar
     params:
       file: out/*.jar
+- name: deploy-chatter-web-ui
+  plan:
+  - aggregate:
+    - get: chatter-git
+    - get: chatter-web-ui-jar
+      trigger: true
+  - task: deploy
+    file: chatter-git/ci/tasks/deploy-fat-jar.yml
+    params:
+      app_name: chatter-web-ui
+  - put: chatter-web-ui-app
+    params:
+      manifest: chatter-git/chatter-web-ui/manifest.yml
+      path: chatter-web-ui-jar/*.jar
