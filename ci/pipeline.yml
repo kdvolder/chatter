@@ -24,8 +24,8 @@ resources:
     access_key_id: {{s3_accesskey}}
     secret_access_key: {{s3_secretkey}}
     region_name: {{s3_region}}
-    regexp: chatter-demo/chatter-web-ui-(.*)\.jar
-- name: chatter-web-ui-app
+    regexp: chatter-demo/chatter-banner-service-(.*)\.jar
+- name: cloudfoundry
   type: cf
   source:
     api: {{cf_api}}
@@ -51,12 +51,11 @@ jobs:
 - name: deploy-chatter-web-ui
   plan:
   - aggregate:
-    - get: chatter-git
     - get: chatter-web-ui-jar
       passed:
       - build-chatter-web-ui
       trigger: true
-  - put: chatter-web-ui-app
+  - put: cloudfoundry
     params:
       manifest: chatter-git/chatter-web-ui/manifest.yml
       path: chatter-web-ui-jar/*.jar
@@ -77,12 +76,11 @@ jobs:
 - name: deploy-chatter-banner-service
   plan:
   - aggregate:
-    - get: chatter-git
-    - get: chatter-web-ui-jar
+    - get: chatter-banner-service-jar
       passed:
-      - build-chatter-web-ui
+      - build-chatter-banner-service
       trigger: true
-  - put: chatter-web-ui-app
+  - put: cloudfoundry
     params:
       manifest: chatter-git/chatter-web-ui/manifest.yml
       path: chatter-web-ui-jar/*.jar
