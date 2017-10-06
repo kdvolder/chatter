@@ -6,7 +6,7 @@ resources:
     private_key: {{rsa_id}}
     branch: toronto_2017
     paths:
-    - docker
+    - ci/docker
 - name: chatter-git
   type: git
   source:
@@ -17,6 +17,8 @@ resources:
   type: docker-image
   source:
     repository: kdvolder/jdk8
+    username: {{docker_hub_username}}
+    password: {{docker_hub_password}}
 - name: chatter-web-ui-jar
   type: s3
   source:
@@ -61,15 +63,18 @@ jobs:
 - name: build-docker-image
   plan:
   - get: chatter-git-docker
+    trigger: true
   - put: docker
     params:
-      build: chatter-git-docker/docker
+      build: chatter-git-docker/ci/docker
 - name: build-chatter-web-ui
   plan:
   - aggregate:
     - get: chatter-git
       trigger: true
     - get: docker
+      passed:
+      - build-docker-image
   - task: build
     file: chatter-git/ci/tasks/build-fat-jar.yml
     params:
@@ -79,6 +84,7 @@ jobs:
     params:
       file: out/*.jar
 - name: deploy-chatter-web-ui
+  serial: true
   plan:
   - aggregate:
     - get: chatter-git
@@ -98,6 +104,8 @@ jobs:
     - get: chatter-git
       trigger: true
     - get: docker
+      passed:
+      - build-docker-image
   - task: build
     file: chatter-git/ci/tasks/build-fat-jar.yml
     params:
@@ -107,6 +115,7 @@ jobs:
     params:
       file: out/*.jar
 - name: deploy-chatter-banner-service
+  serial: true
   plan:
   - aggregate:
     - get: chatter-git
@@ -126,6 +135,8 @@ jobs:
     - get: chatter-git
       trigger: true
     - get: docker
+      passed:
+      - build-docker-image
   - task: build
     file: chatter-git/ci/tasks/build-fat-jar.yml
     params:
@@ -135,6 +146,7 @@ jobs:
     params:
       file: out/*.jar
 - name: deploy-chatter-command-bot
+  serial: true
   plan:
   - aggregate:
     - get: chatter-git
@@ -154,6 +166,8 @@ jobs:
     - get: chatter-git
       trigger: true
     - get: docker
+      passed:
+      - build-docker-image
   - task: build
     file: chatter-git/ci/tasks/build-fat-jar.yml
     params:
@@ -163,6 +177,7 @@ jobs:
     params:
       file: out/*.jar
 - name: deploy-chatter-ping-bot
+  serial: true
   plan:
   - aggregate:
     - get: chatter-git
