@@ -21,7 +21,7 @@ public class ChatterBannerServiceApplication {
 	}
 
 	@GetMapping(value="/", produces="text/plain; charset=utf-8")
-	public String banner(@RequestParam(defaultValue="Toronto 2017") String text) throws IOException {
+	public String banner(@RequestParam(defaultValue="Toronto") String text) throws IOException {
 		return FigletFont.convertOneLine(text);
 	}
 
