@@ -33,6 +33,14 @@ resources:
     secret_access_key: {{s3_secretkey}}
     region_name: {{s3_region}}
     regexp: chatter-demo/chatter-command-bot-(.*)\.jar
+- name: chatter-ping-bot-jar
+  type: s3
+  source:
+    bucket: {{s3_bucket}}
+    access_key_id: {{s3_accesskey}}
+    secret_access_key: {{s3_secretkey}}
+    region_name: {{s3_region}}
+    regexp: chatter-demo/chatter-ping-bot-(.*)\.jar
 - name: cloudfoundry
   type: cf
   source:
@@ -110,5 +118,33 @@ jobs:
       app_name: chatter-command-bot
     image: docker
   - put: chatter-command-bot-jar
+    params:
+      file: out/*.jar
+- name: deploy-chatter-command-bot
+  plan:
+  - aggregate:
+    - get: chatter-git
+      passed:
+      - build-chatter-command-bot
+    - get: chatter-command-bot-jar
+      passed:
+      - build-chatter-command-bot
+      trigger: true
+  - put: cloudfoundry
+    params:
+      manifest: chatter-git/chatter-command-bot/manifest.yml
+      path: chatter-command-bot-jar/*.jar
+- name: build-chatter-ping-bot
+  plan:
+  - aggregate:
+    - get: chatter-git
+      trigger: true
+    - get: docker
+  - task: build
+    file: chatter-git/ci/tasks/build-fat-jar.yml
+    params:
+      app_name: chatter-ping-bot
+    image: docker
+  - put: chatter-ping-bot-jar
     params:
       file: out/*.jar
