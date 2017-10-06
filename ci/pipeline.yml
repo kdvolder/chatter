@@ -25,6 +25,14 @@ resources:
     secret_access_key: {{s3_secretkey}}
     region_name: {{s3_region}}
     regexp: chatter-demo/chatter-banner-service-(.*)\.jar
+- name: chatter-command-bot-jar
+  type: s3
+  source:
+    bucket: {{s3_bucket}}
+    access_key_id: {{s3_accesskey}}
+    secret_access_key: {{s3_secretkey}}
+    region_name: {{s3_region}}
+    regexp: chatter-demo/chatter-command-bot-(.*)\.jar
 - name: cloudfoundry
   type: cf
   source:
@@ -66,9 +74,6 @@ jobs:
   plan:
   - aggregate:
     - get: chatter-git
-      passed:
-      - build-chatter-banner-service
-    - get: chatter-git
       trigger: true
     - get: docker
   - task: build
@@ -82,11 +87,28 @@ jobs:
 - name: deploy-chatter-banner-service
   plan:
   - aggregate:
+    - get: chatter-git
+      passed:
+      - build-chatter-banner-service
     - get: chatter-banner-service-jar
       passed:
       - build-chatter-banner-service
       trigger: true
   - put: cloudfoundry
     params:
-      manifest: chatter-git/chatter-web-ui/manifest.yml
-      path: chatter-web-ui-jar/*.jar
+      manifest: chatter-git/chatter-banner-service/manifest.yml
+      path: chatter-banner-service-jar/*.jar
+- name: build-chatter-command-bot
+  plan:
+  - aggregate:
+    - get: chatter-git
+      trigger: true
+    - get: docker
+  - task: build
+    file: chatter-git/ci/tasks/build-fat-jar.yml
+    params:
+      app_name: chatter-command-bot
+    image: docker
+  - put: chatter-command-bot-jar
+    params:
+      file: out/*.jar
