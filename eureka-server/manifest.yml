@@ -2,5 +2,4 @@
 applications:
 - name: eureka-server
   memory: 1024M
-  routes:
-  - route: eureka-kdv
+  host: eureka-pws
