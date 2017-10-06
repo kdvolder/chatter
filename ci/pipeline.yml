@@ -1,4 +1,12 @@
 resources:
+- name: chatter-git-docker
+  type: git
+  source:
+    uri: git@github.com:kdvolder/chatter.git
+    private_key: {{rsa_id}}
+    branch: toronto_2017
+    paths:
+    - docker
 - name: chatter-git
   type: git
   source:
@@ -8,7 +16,7 @@ resources:
 - name: docker
   type: docker-image
   source:
-    repository: kdvolder/sts4-build-env
+    repository: kdvolder/jdk8
 - name: chatter-web-ui-jar
   type: s3
   source:
@@ -50,6 +58,12 @@ resources:
     organization: {{cf_org}}
     space: {{cf_space}}
 jobs:
+- name: build-docker-image
+  plan:
+  - get: chatter-git-docker
+  - put: docker
+    params:
+      build: chatter-git-docker/docker
 - name: build-chatter-web-ui
   plan:
   - aggregate:
@@ -148,3 +162,17 @@ jobs:
   - put: chatter-ping-bot-jar
     params:
       file: out/*.jar
+- name: deploy-chatter-ping-bot
+  plan:
+  - aggregate:
+    - get: chatter-git
+      passed:
+      - build-chatter-ping-bot
+    - get: chatter-ping-bot-jar
+      passed:
+      - build-chatter-ping-bot
+      trigger: true
+  - put: cloudfoundry
+    params:
+      manifest: chatter-git/chatter-ping-bot/manifest.yml
+      path: chatter-ping-bot-jar/*.jar
