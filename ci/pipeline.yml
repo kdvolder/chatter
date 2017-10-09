@@ -43,14 +43,6 @@ resources:
     secret_access_key: {{s3_secretkey}}
     region_name: {{s3_region}}
     regexp: chatter-demo/chatter-command-bot-(.*)\.jar
-- name: chatter-ping-bot-jar
-  type: s3
-  source:
-    bucket: {{s3_bucket}}
-    access_key_id: {{s3_accesskey}}
-    secret_access_key: {{s3_secretkey}}
-    region_name: {{s3_region}}
-    regexp: chatter-demo/chatter-ping-bot-(.*)\.jar
 - name: cloudfoundry
   type: cf
   source:
