@@ -1,5 +1,3 @@
 {
-    "editor.fontSize": 14,
-    "editor.suggestFontSize": 14,
-    "terminal.integrated.fontSize": 14
+    "window.zoomLevel": 1.0
 }
