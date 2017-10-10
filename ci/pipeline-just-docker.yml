@@ -1,0 +1,23 @@
+resources:
+- name: chatter-git-docker
+  type: git
+  source:
+    uri: git@github.com:kdvolder/chatter.git
+    private_key: {{rsa_id}}
+    branch: toronto_2017
+    paths:
+    - ci/docker
+- name: docker
+  type: docker-image
+  source:
+    repository: kdvolder/jdk8
+    username: {{docker_hub_username}}
+    password: {{docker_hub_password}}
+jobs:
+- name: build-docker-image
+  plan:
+  - get: chatter-git-docker
+    trigger: true
+  - put: docker
+    params:
+      build: chatter-git-docker/ci/docker
