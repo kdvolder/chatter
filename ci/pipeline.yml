@@ -176,3 +176,18 @@ jobs:
   - put: chatter-ping-bot-jar
     params:
       file: out/*.jar
+- name: deploy-chatter-ping-bot
+  serial: true
+  plan:
+  - aggregate:
+    - get: chatter-git
+      passed:
+      - build-chatter-ping-bot
+    - get: chatter-ping-bot-jar
+      passed:
+      - build-chatter-ping-bot
+      trigger: true
+  - put: cloudfoundry
+    params:
+      manifest: chatter-git/chatter-ping-bot/manifest.yml
+      path: chatter-ping-bot-jar/*.jar

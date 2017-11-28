@@ -1,7 +1,6 @@
 applications:
 - name: chatter-web-ui
-#  random-route: true
-#  buildpack: java_buildpack
+  buildpack: java_buildpack
   services:
   - my-rabbit
  
