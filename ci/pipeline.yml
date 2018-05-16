@@ -5,19 +5,17 @@ resources:
     uri: git@github.com:kdvolder/chatter.git
     private_key: {{rsa_id}}
     branch: k8s
-- name: chatter-web-ui-jar
-  type: s3
-  source:
-    bucket: {{s3_bucket}}
-    access_key_id: {{s3_accesskey}}
-    secret_access_key: {{s3_secretkey}}
-    region_name: {{s3_region}}
-    regexp: chatter-demo/chatter-web-ui-(.*)\.jar
 - name: jdk
   type: docker-image
   source:
     repository: openjdk
     tag: 8-jdk
+- name: chatter-web-ui-docker
+  type: docker-image
+  source:
+    repository: kdvolder/chatter-web-ui
+    username: {{docker_hub_username}}
+    password: {{docker_hub_password}}
 jobs:
 - name: build-chatter-web-ui
   plan:
@@ -26,10 +24,10 @@ jobs:
       trigger: true
     - get: jdk
   - task: build
-    file: chatter-git/ci/tasks/build-fat-jar.yml
+    file: git/ci/tasks/build-fat-jar.yml
     params:
       app_name: chatter-web-ui
     image: jdk
-  - put: chatter-web-ui-jar
+  - put: chatter-web-ui-docker
     params:
-      file: out/*.jar
+      build: out
