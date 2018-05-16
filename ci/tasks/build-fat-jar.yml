@@ -1,9 +1,9 @@
 platform: linux
 run:
-  path: chatter-git/ci/tasks/build-fat-jar.sh
+  path: git/ci/tasks/build-fat-jar.sh
 params:
   app_name: some-app-name
 inputs:
-- name: chatter-git
+- name: git
 outputs:
 - name: out
