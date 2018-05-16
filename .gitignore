@@ -5,5 +5,4 @@ target/
 .factorypath
 .springBeans
 **/.sts4-cache
-
-
+chatter-web-ui/docker/fatjar.jar
