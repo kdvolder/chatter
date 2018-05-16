@@ -4,7 +4,7 @@ resources:
   source:
     uri: git@github.com:kdvolder/chatter.git
     private_key: {{rsa_id}}
-    branch: master
+    branch: k8s
 - name: chatter-web-ui-jar
   type: s3
   source:
