@@ -10,5 +10,5 @@ cd $app_dir
 timestamp=`date -u +%Y%m%d%H%M`
 
 jar_name=$(basename `ls $app_dir/target/*.jar`)
-cp $app_dir/target/*.jar ${out_dir}/${jar_name/SNAPSHOT/$timestamp}
-
+cp -a ${base_dir}/git/ci/docker/* ${out_dir}
+cp $app_dir/target/*.jar ${out_dir}/fatjar.jar

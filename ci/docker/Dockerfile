@@ -1,6 +1,3 @@
-FROM ubuntu:16.04
-
-RUN apt-get update && apt-get install -y \
-  openjdk-8-jdk
-
-CMD /bin/bash  
+FROM java:8-jdk
+ADD fatjar.jar /tmp/fatjar.jar
+CMD [ "java", "-jar", "/tmp/fatjar.jar" ]
