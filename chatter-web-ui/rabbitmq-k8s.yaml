@@ -1,33 +1,33 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: chatter-web-ui-svc
+  name: rabbitmq-svc
   labels:
-    app: chatter-web-ui
+    app: rabbitmq
 spec:
   type: NodePort
-  ports:
-    - port: 8080
+  port: 5672
+  targetPort: 5672
   selector:
-    app: chatter-web-ui
+    app: rabbitmq
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: demo-chatter-web-ui
+  name: demo-rabbitmq
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: chatter-web-ui
+      app: rabbitmq
   template:
     metadata:
       labels:
-        app: chatter-web-ui
+        app: rabbitmq
     spec:
       containers:
-      - name: chatter-web-ui
-        image: kdvolder/chatter-web-ui:latest
+      - name: rabbitmq
+        image: kdvolder/rabbitmq-stomp:latest
         imagePullPolicy: Always
         ports:
-        - containerPort: 80
+        - containerPort: 5672
