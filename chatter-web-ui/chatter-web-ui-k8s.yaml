@@ -29,4 +29,5 @@ spec:
       - name: chatter-web-ui
         image: kdvolder/chatter-web-ui:latest
         imagePullPolicy: Always
-        containerPort: 80
+        ports:
+        - containerPort: 80
