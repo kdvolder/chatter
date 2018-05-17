@@ -8,3 +8,6 @@ spring:
           destination: chat
         input:
           destination: chat
+
+  rabbitmq:
+    host: rabbitmq
