@@ -6,6 +6,9 @@ out_dir=${base_dir}/out
 
 echo "PWD=${base_dir}"
 
+ln -s .m2 /root/.m2
+ls -la /root/.m2
+
 cd $app_dir
 ./mvnw clean package
 
