@@ -10,7 +10,7 @@ mkdir -p ${base_dir}/.m2
 
 ln -s ${base_dir}/.m2 /root/.m2
 echo "=== ~/.m2/ contents ===="
-ls -la /root/.m2
+ls -la /root/.m2/
 echo "========================"
 
 cd $app_dir
