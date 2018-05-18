@@ -3,6 +3,8 @@ run:
   path: git/ci/tasks/build-fat-jar.sh
 params:
   app_name: some-app-name
+caches:
+- path: /root/.m2
 inputs:
 - name: git
 outputs:
