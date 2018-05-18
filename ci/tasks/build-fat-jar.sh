@@ -6,8 +6,12 @@ out_dir=${base_dir}/out
 
 echo "PWD=${base_dir}"
 
-ln -s .m2 /root/.m2
+mkdir -p ${base_dir}/.m2
+
+ln -s ${base_dir}/.m2 /root/.m2
+echo "=== ~/.m2/ contents ===="
 ls -la /root/.m2
+echo "========================"
 
 cd $app_dir
 ./mvnw clean package
