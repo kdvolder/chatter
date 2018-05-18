@@ -1,20 +1,21 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: rabbitmq-svc
+  name: rabbitmq
   labels:
     app: rabbitmq
 spec:
-  type: NodePort
-  port: 5672
-  targetPort: 5672
+  type: ClusterIP
+  ports:
+    - port: 5672
+      targetPort: 5672
   selector:
     app: rabbitmq
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: demo-rabbitmq
+  name: rabbitmq
 spec:
   replicas: 1
   selector:
@@ -27,7 +28,4 @@ spec:
     spec:
       containers:
       - name: rabbitmq
-        image: kdvolder/rabbitmq-stomp:latest
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 5672
+        image: kdvolder/rabbitmq-stomp

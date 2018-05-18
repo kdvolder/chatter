@@ -7,7 +7,8 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - port: 8080
+    - port: 80
+      targetPort: 8080
   selector:
     app: chatter-web-ui
 ---
@@ -27,7 +28,5 @@ spec:
     spec:
       containers:
       - name: chatter-web-ui
-        image: kdvolder/chatter-web-ui:latest
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 80
+        image: kdvolder/chatter-web-ui
+   
