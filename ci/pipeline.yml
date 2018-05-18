@@ -19,15 +19,15 @@ resources:
 - name: chatter-web-ui-docker
   type: docker-image
   source:
-    repository: harbor.tan.springapps.io/chatter/web-ui
+    repository: kdvolder/chatter-web-ui
     tag: concourse
     ca_certs:
     - domain: harbor.tan.springapps.io:4443
       cert: {{harbor_ca_cert}}
     insecure_registries:
     - harbor.tan.springapps.io
-    username: {{harbor_username}}
-    password: {{harbor_password}}
+    username: {{docker_hub_username}}
+    password: {{docker_hub_password}}
 - name: pkdv
   type: kubernetes
   source:
@@ -54,6 +54,8 @@ jobs:
   - aggregate:
     - get: git
     - get: chatter-web-ui-docker
+      passed:
+      - build-chatter-web-ui
       trigger: true
   - put: pkdv
     params:
