@@ -4,6 +4,8 @@ base_dir=`pwd`
 app_dir=${base_dir}/git/${app_name}
 out_dir=${base_dir}/out
 
+ln -s .m2 ~/.m2
+
 cd $app_dir
 ./mvnw clean package
 
