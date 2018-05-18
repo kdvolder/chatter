@@ -49,6 +49,15 @@ jobs:
   - put: chatter-web-ui-docker
     params:
       build: out
+- name: deploy-chatter-web-ui
+  plan:
+  - aggregate:
+    - get: git
+    - get: chatter-web-ui-docker
+      trigger: true
+  - put: pkdv
+    params:
+      kubectl: apply -f git/ci/kube/chatter-web-ui.yml
 - name: try-kubectl
   plan:
   - put: pkdv
