@@ -1,3 +1,9 @@
+resource_types:
+- name: kubernetes
+  type: docker-image
+  source:
+    repository: zlabjp/kubernetes-resource
+    tag: 1.9
 resources:
 - name: git
   type: git
@@ -16,6 +22,12 @@ resources:
     repository: kdvolder/chatter-web-ui
     username: {{docker_hub_username}}
     password: {{docker_hub_password}}
+- name: pkdv
+  type: kubernetes
+  source:
+    server: https://10.194.72.194:8443
+    token: {{kube_token}}
+    insecure_skip_tls_verify: true
 jobs:
 - name: build-chatter-web-ui
   plan:
@@ -31,3 +43,8 @@ jobs:
   - put: chatter-web-ui-docker
     params:
       build: out
+- name: try-kubectl
+  plan:
+  - put: pkdv
+    params:
+      kubectl: cluster-info
