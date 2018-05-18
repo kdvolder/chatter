@@ -49,7 +49,7 @@ jobs:
   - put: chatter-web-ui-docker
     params:
       build: out
-- name: deploy-chatter-web-ui
+- name: restart-chatter-web-ui
   plan:
   - aggregate:
     - get: git
@@ -59,7 +59,7 @@ jobs:
       trigger: true
   - put: pkdv
     params:
-      kubectl: apply -f git/ci/kube/chatter-web-ui.yml
+      kubectl: delete pod -l app=chatter-web-ui
 - name: try-kubectl
   plan:
   - put: pkdv
