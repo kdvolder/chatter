@@ -21,13 +21,13 @@ resources:
   source:
     repository: kdvolder/chatter-web-ui
     tag: concourse
+    username: {{docker_hub_username}}
+    password: {{docker_hub_password}}
     # ca_certs:
     # - domain: harbor.tan.springapps.io:4443
     #   cert: {{harbor_ca_cert}}
     # insecure_registries:
     # - harbor.tan.springapps.io
-    # username: {{docker_hub_username}}
-    # password: {{docker_hub_password}}
 - name: pkdv
   type: kubernetes
   source:
