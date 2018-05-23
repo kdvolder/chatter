@@ -1,0 +1,6 @@
+# Default values for chatter.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+web_ui:
+  instances: 1
