@@ -59,8 +59,3 @@ jobs:
   - put: pkdv
     params:
       chart: git/ci/helm/chatter
-- name: try-kubectl
-  plan:
-  - put: pkdv
-    params:
-      kubectl: cluster-info
