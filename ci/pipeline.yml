@@ -2,7 +2,7 @@ resource_types:
 - name: helm
   type: docker-image
   source:
-    repository: linkyard/concourse-helm-resource
+    repository: kdvolder/concourse-helm-resource
 resources:
 - name: git
   type: git
@@ -32,6 +32,7 @@ resources:
   source:
     cluster_url: {{kube_server}}
     token: {{kube_token}}
+    insecure_skip_tls_verify: true
     release: chatter
 jobs:
 - name: build-chatter-web-ui
