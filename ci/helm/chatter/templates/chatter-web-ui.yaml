@@ -28,6 +28,6 @@ spec:
     spec:
       containers:
       - name: chatter-web-ui
-        image: kdvolder/chatter-web-ui:concourse
+        image: harbor.tan.springapps.io/chatter/web-ui:concourse
         imagePullPolicy: Always
         containerPort: 8080
