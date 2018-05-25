@@ -10,6 +10,7 @@ $(document).ready(function() {
 	
 	// Wire up websocket so that msg received from it are shown in the 'console'.
 	ws.onopen = function () {
+		log("Welcome to Chatter");
 		log('inf: WebSocket connection opened.');
 	};
 	ws.onerror = function (error) {
