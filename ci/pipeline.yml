@@ -47,6 +47,8 @@ jobs:
   - put: chatter-web-ui-docker
     params:
       build: out
+    get_params:
+      skip_download: true
 - name: deploy-chatter-web-ui
   plan:
   - aggregate:
@@ -55,6 +57,8 @@ jobs:
       passed:
       - build-chatter-web-ui
       trigger: true
+      params:
+        skip_download: true       
   - put: pkdv
     params:
       chart: git/ci/helm/chatter
