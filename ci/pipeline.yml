@@ -30,9 +30,7 @@ resources:
 - name: pkdv
   type: helm
   source:
-    cluster_url: {{kube_server}}
-    token: {{kube_token}}
-    insecure_skip_tls_verify: true
+    kube_config: {{kube_config}}
     release: chatter
 jobs:
 - name: build-chatter-web-ui
@@ -60,3 +58,4 @@ jobs:
   - put: pkdv
     params:
       chart: git/ci/helm/chatter
+      recreate_pods: true
