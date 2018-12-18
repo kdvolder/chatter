@@ -1,6 +1,6 @@
 applications:
 - name: chatter-banner-service
-  services:
-  - eureka-pws
+#  services:
+#  - eureka-pws
   random-route: true
   buildpack: java_buildpack

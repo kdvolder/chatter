@@ -22,4 +22,11 @@ chatter:
 logging:
   level:
     com.example.BannerCommandHandler: debug
+---
+spring:
+  profiles: cloud
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-pws.cfapps.io/eureka/
  
