@@ -1,0 +1,3 @@
+my-rabbit:
+  service: p-rabbitmq
+  plan: standard
