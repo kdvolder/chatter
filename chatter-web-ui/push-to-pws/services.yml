@@ -1,3 +1,6 @@
 my-rabbit:
   service: p-rabbitmq
   plan: standard
+my-sql:
+  service: p-mysql
+  plan: 512mb
