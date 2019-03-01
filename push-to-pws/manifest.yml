@@ -1,0 +1,15 @@
+buildpack: java_buildpack
+applications:
+- name: chatter-web-ui
+  services:
+  - my-rabbit
+- name: chatter-command-bot
+  random-route: true
+  services:
+  - my-rabbit
+  - eureka-pws
+- name: chatter-banner-service
+  services:
+  - eureka-pws
+  random-route: true
+  buildpack: java_buildpack

@@ -1,0 +1,6 @@
+my-rabbit:
+  service: cloudamqp
+  plan: lemur
+eureka-pws:
+  service: p-service-registry
+  plan: trial
